@@ -1,0 +1,18 @@
+{
+  "id": "id",
+  "external_id": "userPrincipalName",
+  "mail": "mail",
+  "type": "userType",
+  "location": "usageLocation",
+  "is_enabled": "accountEnabled",
+  "first_name": "givenName",
+  "last_name": "surname",
+  "sign_in_activity": {
+    "lastSignInDateTime": "signInActivity.lastSignInDateTime",
+    "lastSignInRequestId": "signInActivity.lastSignInRequestId",
+    "lastNonInteractiveSignInDateTime": "signInActivity.lastNonInteractiveSignInDateTime",
+    "lastNonInteractiveSignInRequestId": "signInActivity.lastNonInteractiveSignInRequestId",
+    "lastSuccessfulSignInDateTime": "signInActivity.lastSuccessfulSignInDateTime",
+    "lastSuccessfulSignInRequestId": "signInActivity.lastSuccessfulSignInRequestId"
+  }
+}
