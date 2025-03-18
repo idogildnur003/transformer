@@ -7,17 +7,22 @@ import (
 	"pathid_assignment/pkg/utils"
 )
 
+// Unmarshaller interface defines methods for different data formats
+// ensuring compatibility with various structured data inputs.
 type Unmarshaller interface {
 	Unmarshal(data []byte, rules map[string]interface{}) ([]map[string]interface{}, error)
 	UnmarshalByProperty(data []byte, rules map[string]interface{}, prop string) ([]map[string]interface{}, error)
 }
 
+// JSONUnmarshaller implements the Unmarshaller interface for JSON format.
 type JSONUnmarshaller struct{}
 
+// NewJSONUnmarshaller creates a new instance of JSONUnmarshaller.
 func NewJSONUnmarshaller() Unmarshaller {
 	return &JSONUnmarshaller{}
 }
 
+// UnmarshalByProperty extracts the specified property from JSON data, if it exists as an array, and processes it accordingly.
 func (u *JSONUnmarshaller) UnmarshalByProperty(data []byte, rules map[string]interface{}, prop string) ([]map[string]interface{}, error) {
 	var jsonObject map[string]interface{}
 	if err := json.Unmarshal(data, &jsonObject); err != nil {
@@ -42,6 +47,7 @@ func (u *JSONUnmarshaller) UnmarshalByProperty(data []byte, rules map[string]int
 	return u.Unmarshal(data, rules)
 }
 
+// Unmarshal processes JSON data based on defined rules and extracts relevant objects.
 func (u *JSONUnmarshaller) Unmarshal(data []byte, rules map[string]interface{}) ([]map[string]interface{}, error) {
 	var jsonObject map[string]interface{}
 	if err := json.Unmarshal(data, &jsonObject); err == nil {

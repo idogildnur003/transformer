@@ -11,7 +11,7 @@ func TestStorage(t *testing.T) {
 	usersFile := "test_users_output.json"
 	signInFile := "test_signin_output.json"
 
-	store := storage.NewStorage(usersFile, signInFile)
+	store := storage.NewStorage()
 
 	// Ensure test files exist before testing
 	_ = os.WriteFile(usersFile, []byte("[]"), 0644)
@@ -51,13 +51,13 @@ func TestStorage(t *testing.T) {
 	}
 
 	// Save user data
-	err := store.SaveUsers(testUser)
+	err := store.SaveUsers(testUser, usersFile)
 	if err != nil {
 		t.Fatalf("Expected no error, got %v", err)
 	}
 
 	// Save sign-in activity
-	err = store.SaveSignInActivities(testSignInActivity)
+	err = store.SaveSignInActivities(testSignInActivity, signInFile)
 	if err != nil {
 		t.Fatalf("Expected no error, got %v", err)
 	}
