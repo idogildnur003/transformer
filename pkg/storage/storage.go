@@ -29,7 +29,7 @@ func (s *Storage) SaveUsers(users []map[string]interface{}, usersFilePath string
 		return err
 	}
 
-	return os.WriteFile(generateFilePath(usersFilePath, "users"), data, 0644)
+	return os.WriteFile(GenerateFilePath(usersFilePath, "users"), data, 0644)
 }
 
 // SaveSignInActivities serializes sign-in activities into JSON format and writes it to a file.
@@ -91,11 +91,11 @@ func (s *Storage) SaveSignInActivities(activities []map[string]interface{}, sign
 		return err
 	}
 
-	return os.WriteFile(generateFilePath(signInFilePath, "signInActivity"), data, 0644)
+	return os.WriteFile(GenerateFilePath(signInFilePath, "signInActivity"), data, 0644)
 }
 
-// generateFilePath constructs a valid file path by combining a base directory with predefined file names.
-func generateFilePath(baseDir, fileType string) string {
+// GenerateFilePath constructs a valid file path by combining a base directory with predefined file names.
+func GenerateFilePath(baseDir, fileType string) string {
 	// Define hardcoded file names based on type
 	fileNames := map[string]string{
 		"users":          "users.json",

@@ -7,19 +7,16 @@ import (
 	"testing"
 )
 
+const OutputDir = "output"
+
 func TestStorage(t *testing.T) {
-	usersFile := "test_users_output.json"
-	signInFile := "test_signin_output.json"
+	err := os.Mkdir(OutputDir, 0755)
+	if err != nil {
+		t.Fatalf("Expected no error, got %v", err)
+	}
+	defer os.RemoveAll(OutputDir)
 
 	store := storage.NewStorage()
-
-	// Ensure test files exist before testing
-	_ = os.WriteFile(usersFile, []byte("[]"), 0644)
-	_ = os.WriteFile(signInFile, []byte("[]"), 0644)
-
-	// Ensure test files are removed after testing
-	defer os.Remove(usersFile)
-	defer os.Remove(signInFile)
 
 	// Creating test user data
 	testUser := []map[string]interface{}{
@@ -51,19 +48,19 @@ func TestStorage(t *testing.T) {
 	}
 
 	// Save user data
-	err := store.SaveUsers(testUser, usersFile)
+	err = store.SaveUsers(testUser, OutputDir)
 	if err != nil {
 		t.Fatalf("Expected no error, got %v", err)
 	}
 
 	// Save sign-in activity
-	err = store.SaveSignInActivities(testSignInActivity, signInFile)
+	err = store.SaveSignInActivities(testSignInActivity, OutputDir)
 	if err != nil {
 		t.Fatalf("Expected no error, got %v", err)
 	}
 
 	// Validate users file
-	fileData, err := os.ReadFile(usersFile)
+	fileData, err := os.ReadFile(storage.GenerateFilePath(OutputDir, "users"))
 	if err != nil {
 		t.Fatalf("Could not read users file: %v", err)
 	}
@@ -83,7 +80,7 @@ func TestStorage(t *testing.T) {
 	}
 
 	// Validate sign-in activity file
-	signInFileData, err := os.ReadFile(signInFile)
+	signInFileData, err := os.ReadFile(storage.GenerateFilePath(OutputDir, "signInActivity"))
 	if err != nil {
 		t.Fatalf("Could not read sign-in file: %v", err)
 	}

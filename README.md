@@ -128,7 +128,8 @@ Sign-in activities are stored separately in an optimized format for scalability:
 The project includes unit tests for all core components:
 
 ```sh
-go test ./...
+cd transformer/pkg/[module you want to test]
+go test
 ```
 
 Ensure all dependencies are installed before running tests.
