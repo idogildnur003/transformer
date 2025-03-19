@@ -11,7 +11,7 @@ A generic Golang library for transforming and processing user data into a struct
 git clone git@github.com:idogildnur003/transformer.git
 cd transformer
 go mod tidy
-mkdir -p data/output  # Ensure the default output directory exists
+mkdir data/output  # Ensure the default output directory exists
 ```
 
 **Note:** The `data/output` directory must exist before running the program, as it serves as the default output path.
@@ -20,12 +20,6 @@ mkdir -p data/output  # Ensure the default output directory exists
 
 ### Running the CLI
 You can execute the `read` command with required flags:
-
-#### **Basic Usage**
-
-```sh
-./data-transformer read --input path/to/input.json
-```
 
 #### **Flags & Options**
 
@@ -43,23 +37,17 @@ If no rules file is provided, the program will use a default one.
 
 #### Example 1: Using a custom rules file
 ```shell
-go run cmd/main.go read --input data/input/users.json --output data/output/transformed.json --rules configs/custom_rules.json
+go run cli/main.go read --input data/input/users.json --output data/output --rules configs/custom_rules.json
 ```
 
 #### Example 2: Using the default rules file
 ```shell
-go run cmd/main.go read --input data/input/
+go run cli/main.go read --input data/input/
 ```
 
 #### Example 3: Using the default rules file and single input file 
 ```shell
-go run cmd/main.go read --input data/input/fake_users_1.json
-```
-
-#### Example 4: Running as a built executable
-```shell
-go build -o transformer cmd/main.go
-./transformer read -i data/input/users.json -o data/output/transformed.json -r configs/custom_rules.json
+go run cli/main.go read --input data/input/fake_users_part_1.json
 ```
 
 ## How It Works
